@@ -1,0 +1,17 @@
+name: CuteLogin
+version: ${project.version}
+main: moe.windleaf.cutelogin.CuteLogin
+api-version: 1.16
+commands:
+  register:
+    description: '是注册命令~'
+    aliases:
+      - 'reg'
+  login:
+    description: '是登录命令~'
+    aliases:
+      - 'l'
+  logout:
+    description: '是注销命令~'
+    aliases:
+      - 'lout'
