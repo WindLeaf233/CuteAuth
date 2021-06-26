@@ -7,17 +7,19 @@ public class LoginMapManager {
     public LoginMapManager() { }
 
     public Boolean isLogin(Player player) {
-        return CuteLogin.loginMap.get(player) != null && CuteLogin.loginMap.get(player);
+        if (CuteLogin.loginMap.get(player.getUniqueId().toString()) == null) { return false; } else {
+            return CuteLogin.loginMap.get(player.getUniqueId().toString());
+        }
     }
 
     public void remove(Player player) {
-        CuteLogin.loginMap.remove(player);
-        CuteLogin.loginMap.put(player, false);
+        CuteLogin.loginMap.remove(player.getUniqueId().toString());
+        CuteLogin.loginMap.put(player.getUniqueId().toString(), false);
     }
 
     public void add(Player player) {
-        CuteLogin.loginMap.remove(player);
-        CuteLogin.loginMap.put(player, true);
+        CuteLogin.loginMap.remove(player.getUniqueId().toString());
+        CuteLogin.loginMap.put(player.getUniqueId().toString(), true);
     }
 
 }

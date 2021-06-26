@@ -1,0 +1,6 @@
+forbidden:
+  execute-command: true
+  chat: true
+log:
+  limit-time: 30
+  intervals-time: 5

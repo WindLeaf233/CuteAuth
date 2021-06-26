@@ -16,6 +16,7 @@ public class LogUtil {
         sender.sendMessage(StringUtil.formatColor(CuteLogin.PREFIX + message));
     }
 
+    @SuppressWarnings("unused")
     public static void needPlayer(CommandSender sender) {
         LogUtil.logPlayer(sender, "&c哦不, 这个命令只能由玩家来执行... OxO");
     }

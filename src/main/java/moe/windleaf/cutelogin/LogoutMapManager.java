@@ -11,9 +11,9 @@ public class LogoutMapManager {
         int times = this.getTimes(player);
         if (times == 1) {
             this.remove(player);
-            CuteLogin.loginMapManager.remove(player);
             CuteLogin.dataManager.remove(player);
-            player.kickPlayer(StringUtil.formatColor("&c你注销了该服务器的账号, 有缘再会 (˃̣̣̥ o ˂̣̣̥)"));
+            CuteLogin.loginMapManager.remove(player);
+            player.kickPlayer(StringUtil.formatColor("&c你注销了该服务器的账号, 有缘再见 ヾ(￣▽￣)"));
         } else {
             CuteLogin.logoutMap.remove(player);
             CuteLogin.logoutMap.put(player, times+1);
