@@ -31,6 +31,12 @@ public class PlayerPreCommand implements Listener {
                         if (CuteLogin.dataManager.canPass(player, args.get(0))) {
                             CuteLogin.loginMapManager.add(player);
                             CuteLogin.threadSchedule.interrupt();
+                            CuteLogin.threadSchedule.timer.cancel();
+                            if (CuteLogin.autoLoginThreadSchedule != null) {
+                                CuteLogin.autoLoginThreadSchedule.interrupt();
+                                CuteLogin.autoLoginThreadSchedule.timer.cancel();
+                            }
+                            player.setInvulnerable(false);
                             LogUtil.logPlayer(player, "&a哇, 看样子登录成功了呢! 快去愉快地玩耍吧 •ᴗ•");
                         } else { LogUtil.logPlayer(player, "&c噢... 你的密码不对诶, 你是不是记错了 (¬◡¬)✧"); }
                     } else { LogUtil.logPlayer(player, "&c你还没注册呢, 快去注册一个账号再来登录叭 |·ω·`)"); }
@@ -47,7 +53,10 @@ public class PlayerPreCommand implements Listener {
                         ArrayList<String> list = CuteLogin.dataManager.encryptPassword(args.get(0));
                         CuteLogin.dataManager.add(player, list.get(0), list.get(1));
                         CuteLogin.dataManager.save();
+                        CuteLogin.loginMapManager.add(player);
                         CuteLogin.threadSchedule.interrupt();
+                        CuteLogin.threadSchedule.timer.cancel();
+                        player.setInvulnerable(false);
                         LogUtil.logPlayer(player, "&a叮~ 你的账号创建成功! 快去 HAPPY 吧 (๑•ᴗ•๑)♡");
                     } else { LogUtil.logPlayer(player, "&c呃, 看样子你两次输入的密码不相同哦! 再试试吧 ๐·°(৹˃̵﹏˂̵৹)°·๐"); }
                 } else { LogUtil.logPlayer(player, "&c你的参数不对喔, 正确用法是 &b/register <密码> <确认密码> &c哦, 别忘了~"); }

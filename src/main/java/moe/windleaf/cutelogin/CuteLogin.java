@@ -2,10 +2,10 @@ package moe.windleaf.cutelogin;
 
 import moe.windleaf.cutelogin.events.PlayerJoin;
 import moe.windleaf.cutelogin.events.PlayerPreCommand;
+import moe.windleaf.cutelogin.events.PlayerQuit;
 import moe.windleaf.cutelogin.filters.ConsoleFilter;
 import moe.windleaf.cutelogin.filters.Log4jFilter;
 import moe.windleaf.cutelogin.forbidden.*;
-import moe.windleaf.cutelogin.schedule.ThreadSchedule;
 import moe.windleaf.cutelogin.utils.FileUtil;
 import moe.windleaf.cutelogin.utils.LogUtil;
 import moe.windleaf.cutelogin.utils.StringUtil;
@@ -19,13 +19,9 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Objects;
 
 public final class CuteLogin extends JavaPlugin {
-
-    /*
-     * TODO: 玩家离线后开启一个线程, 时长为 30minutes (开启后过 30minutes 结束),
-     *       结束后将玩家登录状态设为 `false`
-     */
 
     public static CuteLogin INSTANCE;
     public static String PREFIX = StringUtil.formatColor("&d&lCuteLogin &r>> ");
@@ -46,7 +42,8 @@ public final class CuteLogin extends JavaPlugin {
     public static ArrayList<String> commands = new ArrayList<>(Arrays.asList("/login", "/l",
                                                                              "/register", "/reg",
                                                                              "/logout", "/lout"));
-    public static ThreadSchedule threadSchedule;
+    public static moe.windleaf.cutelogin.schedule.timeout.ThreadSchedule threadSchedule;
+    public static moe.windleaf.cutelogin.schedule.autologin.ThreadSchedule autoLoginThreadSchedule;
 
     @Override
     public void onEnable() {
@@ -57,6 +54,8 @@ public final class CuteLogin extends JavaPlugin {
 
         p.registerEvents(new PlayerJoin(), this);
         p.registerEvents(new PlayerPreCommand(), this);
+        p.registerEvents(new PlayerQuit(), this);
+        Objects.requireNonNull(this.getCommand("cutelogin")).setExecutor(new moe.windleaf.cutelogin.commands.CuteLogin());
         this.loadForbiddenEvents();
 
         LogUtil.log("&a呐呐呐, 插件加载完咯~");

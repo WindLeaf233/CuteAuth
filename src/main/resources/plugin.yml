@@ -15,3 +15,5 @@ commands:
     description: '是注销命令~'
     aliases:
       - 'lout'
+  cutelogin:
+    description: '是本体命令~'
