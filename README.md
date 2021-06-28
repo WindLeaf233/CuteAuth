@@ -9,7 +9,7 @@
 5. 在 `PlayerCommandPreprocessEvent` 事件使用全新方法对命令进行定义与运行, 有效地避免了传统定义命令可能会出现的 **`NullPointerException`**, 保证 **线程安全**.
 
 # Other
-- 命令定义方法:
+命令定义方法:
   ```Java
   String commandPlayerTyped = "command";
   Runnable command = () -> {
