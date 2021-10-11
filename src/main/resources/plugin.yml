@@ -1,0 +1,21 @@
+name: CuteAuth
+version: ${project.version}
+main: qwq.windleaf.cuteauth.CuteAuth
+api-version: 1.16
+
+commands:
+  register:
+    aliases:
+      - 'reg'
+  login:
+    aliases:
+      - 'l'
+  logout:
+    aliases:
+      - 'lout'
+  cuteauth:
+    permission: 'cuteauth.cuteauth'
+
+permissions:
+  cuteauth.cuteauth:
+    default: op

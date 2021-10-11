@@ -1,0 +1,20 @@
+forbidden: # 未登录时禁止的事项
+  execute-command: true # 禁止执行命令
+  chat: true # 禁止聊天
+
+log: # 提醒玩家登录或注册
+  limit-time: 30 # 限时 (单位: 秒), 超时后将玩家踢出
+  kick-message: '&c你超过了限制时间来登录或注册: &b{time}s&c~' # 踢出玩家的原因, 可用 {time} 替换上面设置的限时, {player} 替换玩家名
+  intervals-time: 5 # 发送频率 (单位: 秒), 即每 x 秒发送一次提醒消息
+
+auto-login: # 自动登录
+  enable: true # 是否开启自动登录
+  time: 1800 # 自动登录失效时间 (单位: 秒), 1800 为 30 分钟
+
+database: # 数据库储存
+  enable: true # 是否开启数据库储存, 如果为 false 则使用备用文件储存
+  host: 'localhost' # 数据库主机
+  port: 3306 # 数据库端口
+  username: 'root' # 数据库用户名
+  password: '' # 数据库密码
+  name: 'data' # 数据库名字
