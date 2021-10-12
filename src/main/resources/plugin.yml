@@ -1,21 +1,21 @@
 name: CuteAuth
+description: 一个简易高效且安全的 Minecraft Bukkit 1.16.x 登录插件.
+author: WindLeaf_qwq
+website: https://windleaf.ml/
 version: ${project.version}
 main: qwq.windleaf.cuteauth.CuteAuth
 api-version: 1.16
 
 commands:
   register:
-    aliases:
-      - 'reg'
+    aliases: [reg]
   login:
-    aliases:
-      - 'l'
+    aliases: [l]
   logout:
-    aliases:
-      - 'lout'
+    aliases: [lout]
   cuteauth:
     permission: 'cuteauth.cuteauth'
 
 permissions:
-  cuteauth.cuteauth:
+  cuteauth.reload:
     default: op

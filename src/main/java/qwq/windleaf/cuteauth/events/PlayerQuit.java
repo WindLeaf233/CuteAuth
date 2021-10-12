@@ -12,7 +12,8 @@ public class PlayerQuit implements Listener {
     public void handler(PlayerQuitEvent e) {
         if (CuteAuth.loginMapManager.isLogin(e.getPlayer())) {
             CuteAuth.autoLoginThreadSchedule = new ThreadSchedule(
-                    CuteAuth.instance.getConfig().getInt("auto-login.time"), e.getPlayer()
+                    CuteAuth.instance.getConfig().getInt("auto-login.time"),
+                    e.getPlayer()
             );
             CuteAuth.autoLoginThreadSchedule.start();
         }

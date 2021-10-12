@@ -1,10 +1,10 @@
 package qwq.windleaf.cuteauth.schedules.timeout;
 
 import qwq.windleaf.cuteauth.CuteAuth;
-import qwq.windleaf.cuteauth.utils.StringUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
+import qwq.windleaf.cuteauth.utils.Utils;
 
 public class AsyncKick {
 
@@ -25,7 +25,7 @@ public class AsyncKick {
                 @Override
                 public void run() {
                     Bukkit.getScheduler().runTask(CuteAuth.instance, () -> player.kickPlayer(
-                            StringUtil.formatColor(kickMessage)
+                            Utils.formatColor(kickMessage)
                                     .replace("{time}", String.valueOf(limitTime))
                                     .replace("{player}", player.getName())
                     ));

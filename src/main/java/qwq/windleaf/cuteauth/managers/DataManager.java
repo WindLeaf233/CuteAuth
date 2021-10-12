@@ -1,9 +1,9 @@
 package qwq.windleaf.cuteauth.managers;
 
 import qwq.windleaf.cuteauth.CuteAuth;
-import qwq.windleaf.cuteauth.utils.FileUtil;
 import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.bukkit.entity.Player;
+import qwq.windleaf.cuteauth.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -63,13 +63,13 @@ public class DataManager {
     }
 
     public void save() {
-        if (!DatabaseManager.useDatabase) FileUtil.saveHashMap(CuteAuth.data, CuteAuth.instance.path);
+        if (!DatabaseManager.useDatabase) Utils.saveHashMap(CuteAuth.data, CuteAuth.instance.path);
     }
 
     public HashMap<String, ArrayList<String>> loadData() {
         if (!DatabaseManager.useDatabase) {
             @SuppressWarnings("unchecked")
-            HashMap<String, ArrayList<String>> data = (HashMap<String, ArrayList<String>>) FileUtil.loadHashMap(CuteAuth.instance.path);
+            HashMap<String, ArrayList<String>> data = (HashMap<String, ArrayList<String>>) Utils.loadHashMap(CuteAuth.instance.path);
             return data;
         }
         return null;

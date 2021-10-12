@@ -1,12 +1,12 @@
 package qwq.windleaf.cuteauth.filters;
 
-import qwq.windleaf.cuteauth.utils.FilterUtil;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.Marker;
 import org.apache.logging.log4j.core.LogEvent;
 import org.apache.logging.log4j.core.Logger;
 import org.apache.logging.log4j.core.filter.AbstractFilter;
 import org.apache.logging.log4j.message.Message;
+import qwq.windleaf.cuteauth.utils.Utils;
 
 public class Log4jFilter extends AbstractFilter {
 
@@ -16,7 +16,7 @@ public class Log4jFilter extends AbstractFilter {
     }
     
     private static Result validateMessage(String message) {
-        return FilterUtil.isCuteLoginCommand(message) ? Result.DENY : Result.NEUTRAL;
+        return Utils.isPluginCommand(message) ? Result.DENY : Result.NEUTRAL;
     }
 
     @Override

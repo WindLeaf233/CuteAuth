@@ -2,7 +2,8 @@ package qwq.windleaf.cuteauth.managers;
 
 import org.bukkit.configuration.file.FileConfiguration;
 import qwq.windleaf.cuteauth.CuteAuth;
-import qwq.windleaf.cuteauth.utils.LogUtil;
+import qwq.windleaf.cuteauth.Log;
+import qwq.windleaf.cuteauth.utils.Utils;
 
 import java.sql.*;
 
@@ -17,7 +18,9 @@ public class DatabaseManager {
     protected static Connection connection;
     protected static Statement statement;
 
-    public DatabaseManager() { }
+    public DatabaseManager() {
+
+    }
 
     private ResultSet executeSQL(String sql) {
         try {
@@ -27,7 +30,7 @@ public class DatabaseManager {
             statement.execute(sql);
             return statement.getResultSet();
         } catch (SQLException e) {
-            LogUtil.log("&c操作数据库失败, 请检查是否配置正确!");
+            Utils.disableByError("&c操作数据库失败了, 请检查是否配置正确 (T^T) ");
             e.printStackTrace();
             return null;
         }
@@ -40,8 +43,8 @@ public class DatabaseManager {
         password = fc.getString("database.password");
         String name = fc.getString("database.name", "data");
         url = String.format("jdbc:mysql://%s:%s/%s?useSSL=false", host, port, name);
-        this.executeSQL("CREATE TABLE IF NOT EXISTS player_data (UUID VARCHAR(255) PRIMARY KEY NOT NULL, EncryptedPassword TEXT NOT NULL, Salt TEXT NOT NULL);");
-        LogUtil.log("&a好耶, 数据库一切正常 ヾ(✿ﾟ▽ﾟ)ノ");
+        ResultSet rs = this.executeSQL("CREATE TABLE IF NOT EXISTS player_data (UUID VARCHAR(255) PRIMARY KEY NOT NULL, EncryptedPassword TEXT NOT NULL, Salt TEXT NOT NULL);");
+        if (rs != null) Log.console("&a好耶, 数据库一切正常 ヾ(✿ﾟ▽ﾟ)ノ");
     }
 
     public void registerPlayer(String UUID, String encryptedPassword, String salt) {

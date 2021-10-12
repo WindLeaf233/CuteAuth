@@ -5,7 +5,9 @@ import qwq.windleaf.cuteauth.CuteAuth;
 
 public class LoginMapManager {
 
-    public LoginMapManager() { }
+    public LoginMapManager() {
+
+    }
 
     public Boolean isLogin(Player player) {
         if (CuteAuth.loginMap.get(player.getUniqueId().toString()) == null) return false;

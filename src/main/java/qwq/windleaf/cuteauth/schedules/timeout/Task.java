@@ -1,7 +1,7 @@
 package qwq.windleaf.cuteauth.schedules.timeout;
 
-import qwq.windleaf.cuteauth.utils.LogUtil;
 import org.bukkit.entity.Player;
+import qwq.windleaf.cuteauth.Log;
 
 import java.util.TimerTask;
 
@@ -26,7 +26,7 @@ public class Task extends TimerTask {
             this.threadSchedule.interrupt();
         } else {
             this.threadSchedule.time = this.threadSchedule.time + (this.period / 1000);
-            LogUtil.logPlayer(this.player, this.log);
+            Log.send(this.player, this.log);
         }
     }
 

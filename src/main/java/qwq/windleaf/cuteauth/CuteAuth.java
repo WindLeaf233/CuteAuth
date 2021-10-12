@@ -13,28 +13,25 @@ import qwq.windleaf.cuteauth.managers.DataManager;
 import qwq.windleaf.cuteauth.managers.LoginMapManager;
 import qwq.windleaf.cuteauth.managers.LogoutMapManager;
 import qwq.windleaf.cuteauth.schedules.timeout.ThreadSchedule;
-import qwq.windleaf.cuteauth.utils.FileUtil;
-import qwq.windleaf.cuteauth.utils.LogUtil;
-import qwq.windleaf.cuteauth.utils.StringUtil;
 import org.apache.logging.log4j.LogManager;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+import qwq.windleaf.cuteauth.utils.Utils;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Objects;
+import java.util.logging.Logger;
 
 public final class CuteAuth extends JavaPlugin {
 
-    public static String VERSION = "0.2";
-    public static String PREFIX = StringUtil.formatColor("&d&lCuteAuth &r>> ");
-    public static Logger logger = new Logger(PREFIX);
-    public String PREFIX_PATH = FileUtil.getPath() + "plugins" + File.separator + this.getName() + File.separator;
-
+    public static String VERSION = "0.3";
+    public static String PREFIX = Utils.formatColor("&dCuteAuth &r| ");
+    public String PREFIX_PATH = Utils.getPath() + "plugins" + File.separator + "CuteAuth" + File.separator;
     public String path = this.PREFIX_PATH + "data.db";
 
     public static CuteAuth instance;
@@ -54,37 +51,44 @@ public final class CuteAuth extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        long startTime = System.currentTimeMillis();
         instance = this;
-        dataManager = new DataManager();
-        data = dataManager.loadData();
 
-        LogUtil.log("&b============================");
-        LogUtil.log("&a CuteAuth &r- &aversion &6" + VERSION);
-        LogUtil.log("&a Written by &eWindLeaf_qwq");
-        LogUtil.log("&b============================");
+        Log.init(PREFIX);
+        Log.console = Bukkit.getConsoleSender();
+        Log.sendPluginInfo(Log.console);
 
-        this.loadDatabase();
+        Log.console("&f加载数据库中...");
+        this.loadJDBC();
         this.saveConfig();
         this.loadFilter();
 
-        this.loadEvents();
-        this.loadCommands();
-        this.loadForbiddenEvents();
+        Log.console("&f加载数据管理器中...");
+        dataManager = new DataManager();
+        data = dataManager.loadData();
 
-        for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
-            onlinePlayer.setInvulnerable(true);
-            threadSchedule = new ThreadSchedule(onlinePlayer, "&a输入 &b/login <密码> &a登录哦 (๑•.•๑)",
-                    this.getConfig().getInt("log.intervals-time") * 1000,
-                    this.getConfig().getInt("log.limit-time"));
-            threadSchedule.start(); }
+        if (this.isEnabled()) {
+            this.loadEvents();
+            this.loadCommands();
+            this.loadForbiddenEvents();
 
-        LogUtil.log("&a呐呐呐, 插件加载完咯~");
+            for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
+                onlinePlayer.setInvulnerable(true);
+                threadSchedule = new ThreadSchedule(onlinePlayer, "&a输入 &b/login <密码> &a登录哦 (๑•.•๑)",
+                        this.getConfig().getInt("log.intervals-time") * 1000,
+                        this.getConfig().getInt("log.limit-time"));
+                threadSchedule.start();
+            }
+
+            long endTime = System.currentTimeMillis();
+            Log.console("&a插件加载完咯~ 用时 {0}{1}!", (endTime - startTime), " ms");
+        }
     }
 
     @Override
     public void onDisable() {
+        Log.console("&c卸载插件中...");
         Bukkit.getScheduler().cancelTasks(this);
-        LogUtil.log("&c要被卸载了呢...");
     }
 
     private void loadFilter() {
@@ -94,12 +98,11 @@ public final class CuteAuth extends JavaPlugin {
             logger = (org.apache.logging.log4j.core.Logger) LogManager.getRootLogger();
             logger.addFilter(new Log4jFilter());
         } catch (ClassNotFoundException | NoClassDefFoundError e) {
-            LogUtil.log("&e你好像在 Minecraft 1.6.x 或者更旧的版本上运行这个插件... 我可能无法支持 Log4J :(");
+            Log.console("&cLog4J 加载失败了 (;′⌒`)");
             ConsoleFilter consoleFilter = new ConsoleFilter();
-            getLogger().setFilter(consoleFilter);
+            this.getLogger().setFilter(consoleFilter);
             Bukkit.getLogger().setFilter(consoleFilter);
-            java.util.logging.Logger.getLogger("Minecraft").setFilter(consoleFilter);
-
+            Logger.getLogger("Minecraft").setFilter(consoleFilter);
         }
     }
 
@@ -127,13 +130,11 @@ public final class CuteAuth extends JavaPlugin {
         if (!(new File(this.PREFIX_PATH + "config.yml").exists())) this.saveResource("config.yml", false);
     }
 
-    private void loadDatabase() {
+    private void loadJDBC() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException e) {
-            LogUtil.log("&c无法加载 JDBC 数据库驱动, 请使用备用文件储存!");
-            e.printStackTrace();
-            p.disablePlugin(this);
+            Utils.disableByError("&c加载 JDBC 数据库驱动失败, 请在配置文件关闭数据库储存 o(╥﹏╥)o");
         }
     }
 
