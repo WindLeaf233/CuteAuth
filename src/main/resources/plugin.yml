@@ -8,13 +8,20 @@ api-version: 1.16
 
 commands:
   register:
+    description: 注册命令
+    usage: /register <password> <confirm password>
     aliases: [reg]
   login:
+    description: 登录命令
+    usage: /login <password>
     aliases: [l]
   logout:
+    description: 注销命令
+    usage: /lougout [cancel]
     aliases: [lout]
   cuteauth:
-    permission: 'cuteauth.cuteauth'
+    description: CuteAuth 插件本体命令
+    usage: /cuteauth <help/reload/version>
 
 permissions:
   cuteauth.reload:

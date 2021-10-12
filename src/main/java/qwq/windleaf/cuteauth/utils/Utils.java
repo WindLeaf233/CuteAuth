@@ -9,7 +9,7 @@ import java.util.HashMap;
 public class Utils {
 
     public static String formatColor(String string) {
-        return progressString(string.replace("&", "§"));
+        return progressString(string).replace("&", "§");
     }
 
     public static Boolean isPluginCommand(String command) {

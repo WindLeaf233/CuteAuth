@@ -22,9 +22,9 @@ public class CuteAuthCommand implements CommandExecutor, TabCompleter {
                     Log.send(sender, " &b/cuteauth help &f» &a显示此帮助");
                     Log.send(sender, " &b/cuteauth &creload &f» &a重载配置");
                     Log.send(sender, " &b/cuteauth version &f» &a查看插件版本信息");
-                    Log.send(sender, " &b/login <password> &f» &a登录账号");
-                    Log.send(sender, " &b/register <password> <confirm password> &f» &a注册账号");
-                    Log.send(sender, " &b/logout [cancel] &f» &a注销账号");
+                    Log.send(sender, " &b/[l]login <password> &f» &a登录账号");
+                    Log.send(sender, " &b/[reg]register <password> <confirm password> &f» &a注册账号");
+                    Log.send(sender, " &b/[lout]logout [cancel] &f» &a注销账号");
                     break;
                 case "reload":
                     if (sender.hasPermission("cuteauth.reload")) {
