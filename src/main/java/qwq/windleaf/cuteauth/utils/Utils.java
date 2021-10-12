@@ -66,10 +66,10 @@ public class Utils {
     }
 
     public static String progressString(String s) {
-        return s.replace("[", "&7[")
-                .replace("]", "]&r")
-                .replace("<", "&7<&n")
-                .replace(">", "&r&7>&r");
+        return s.replace("[", "&f[")
+                .replace("]", "]&r&b")
+                .replace("<", "&f<&n")
+                .replace(">", "&r&f>&r&b");
     }
 
 }
