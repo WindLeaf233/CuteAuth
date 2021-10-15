@@ -3,7 +3,7 @@ description: 一个简易高效且安全的 Minecraft Bukkit 1.16.x 登录插件
 author: WindLeaf_qwq
 website: https://windleaf.ml/
 version: ${project.version}
-main: qwq.windleaf.cuteauth.CuteAuth
+main: ml.windleaf.cuteauth.CuteAuth
 api-version: 1.16
 
 commands:
